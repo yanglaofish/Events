@@ -2,12 +2,22 @@ package org.example;
 
 public class EventHandler {
     //事件处理方
-    EventManager manager;
-    public  void subscribe(EventSource source){
+    private String name;
+    private EventManager manager;
+    private Event event;
+
+    public EventHandler(String name, EventManager manager) {
+        this.name = name;
+        this.manager = manager;
+        manager.addhandler(this);
 
     }
-    private void receiveMessage(){
 
+    public  void subscribe(EventSource source){
+    manager.subscribe(source,this);
+    }
+    public void receiveMessage(Event msg){
+        event=msg;
     }
 
 }

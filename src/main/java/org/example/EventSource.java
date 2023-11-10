@@ -8,6 +8,7 @@ public class EventSource {
     public EventSource(String name, EventManager manager) {
         this.name = name;
         this.manager = manager;
+        manager.addsource(this);
     }
 
     public void dosomething()
