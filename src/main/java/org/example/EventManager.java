@@ -8,6 +8,7 @@ public class EventManager {
     private List<EventSource> eventSourceList;
     private List<EventHandler> eventHandlers;
     private HashMap<EventSource, HashSet<EventHandler>>  managers;
+    private int mode;
 
     public EventManager() {
         eventList =new ArrayList<>();
@@ -16,12 +17,17 @@ public class EventManager {
         managers = new HashMap<>();
     }
 
-    public void sendMessage(Event event){
+    public void sendMessage(Event event)
+    {
         eventList.add(event);
-        receiveMessage(2,event);
+        receiveMessage(this.mode,event);
     }
 
-    public void subscribe(EventSource Source,EventHandler Handler){
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
+
+    public void subscribe(EventSource Source, EventHandler Handler){
         if(managers.containsKey(Source)){
             managers.get(Source).add(Handler);
         }
@@ -33,38 +39,38 @@ public class EventManager {
     }
     public void receiveMessage(int mode,Event event)
     {
-    switch (mode){
+        switch (mode){
 
-        case 0://全广播
-            //Event event=eventList.get(eventList.size()-1);
+            case 1://全广播
+                //Event event=eventList.get(eventList.size()-1);
                 for(EventHandler handler:eventHandlers) {
                     handler.receiveMessage(event);
                 }
-        case 1://订阅
-            EventSource source=event.getEventSource();
-            HashSet<EventHandler> sets=managers.get(source);
-            if(sets==null){
-                break;
-            }
-            for(EventHandler handler:sets) {
-                handler.receiveMessage(event);
-            }
-        case 2://点对点
-            EventSource sourc=event.getEventSource();
-            HashSet<EventHandler> set=managers.get(sourc);
-            if(set==null){
-                break;
-            }
-            ArrayList<EventHandler> arrayList=new ArrayList<>(set);
-            int size=set.size();
-            Random random=new Random();
-            int rad= random.nextInt(size);
-            arrayList.get(rad).receiveMessage(event);
+            case 2://订阅
+                EventSource source=event.getEventSource();
+                HashSet<EventHandler> sets=managers.get(source);
+                if(sets==null){
+                    break;
+                }
+                for(EventHandler handler:sets) {
+                    handler.receiveMessage(event);
+                }
+            case 3://点对点
+                EventSource sourc=event.getEventSource();
+                HashSet<EventHandler> set=managers.get(sourc);
+                if(set==null){
+                    break;
+                }
+                ArrayList<EventHandler> arrayList=new ArrayList<>(set);
+                int size=set.size();
+                Random random=new Random();
+                int rad= random.nextInt(size);
+                arrayList.get(rad).receiveMessage(event);
 
-         default:
-             break;
+            default:
+                break;
 
-    }
+        }
     }
     public void addsource(EventSource eventSource){
         eventSourceList.add(eventSource);

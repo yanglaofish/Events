@@ -14,7 +14,7 @@ public class EventHandler {
     }
 
     public  void subscribe(EventSource source){
-    manager.subscribe(source,this);
+        manager.subscribe(source,this);
     }
     public void receiveMessage(Event msg){
         event=msg;

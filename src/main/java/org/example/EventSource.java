@@ -13,11 +13,16 @@ public class EventSource {
 
     public void dosomething()
     {
-        System.out.println("Hello");
-        sendMessage(new Event("Hello","message",this));
+        sendMessage(new Event(this.name,"message",this));
     }
-    private void sendMessage(Event event){
+    private void sendMessage(Event event)
+    {
         manager.sendMessage(event);
     }
 
+    @Override
+    public String toString()
+    {
+        return name;
+    }
 }
