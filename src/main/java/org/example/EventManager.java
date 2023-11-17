@@ -20,7 +20,7 @@ public class EventManager {
     public void sendMessage(Event event)
     {
         eventList.add(event);
-        receiveMessage(this.mode,event);
+        receiveMessage(mode,event);
     }
 
     public void setMode(int mode) {
@@ -46,6 +46,7 @@ public class EventManager {
                 for(EventHandler handler:eventHandlers) {
                     handler.receiveMessage(event);
                 }
+                break;
             case 2://订阅
                 EventSource source=event.getEventSource();
                 HashSet<EventHandler> sets=managers.get(source);
@@ -55,6 +56,7 @@ public class EventManager {
                 for(EventHandler handler:sets) {
                     handler.receiveMessage(event);
                 }
+                break;
             case 3://点对点
                 EventSource sourc=event.getEventSource();
                 HashSet<EventHandler> set=managers.get(sourc);
@@ -66,6 +68,7 @@ public class EventManager {
                 Random random=new Random();
                 int rad= random.nextInt(size);
                 arrayList.get(rad).receiveMessage(event);
+                break;
 
             default:
                 break;

@@ -12,7 +12,7 @@ public class EventSource {
     }
 
     public void dosomething()
-    {
+    {   main.logtime(this.name+" Do something");
         sendMessage(new Event(this.name,"message",this));
     }
     private void sendMessage(Event event)
@@ -20,9 +20,7 @@ public class EventSource {
         manager.sendMessage(event);
     }
 
-    @Override
-    public String toString()
-    {
+    public String getName() {
         return name;
     }
 }

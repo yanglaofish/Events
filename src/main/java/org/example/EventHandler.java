@@ -6,6 +6,10 @@ public class EventHandler {
     private EventManager manager;
     private Event event;
 
+    public String getName() {
+        return name;
+    }
+
     public EventHandler(String name, EventManager manager) {
         this.name = name;
         this.manager = manager;
@@ -14,10 +18,12 @@ public class EventHandler {
     }
 
     public  void subscribe(EventSource source){
+        main.logtime(this.name+" sub "+source.getName());
         manager.subscribe(source,this);
     }
     public void receiveMessage(Event msg){
         event=msg;
+        main.logtime(this.name+" recv");
     }
 
 }

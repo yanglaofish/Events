@@ -1,12 +1,19 @@
 package org.example;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class main
 {
 
+    public static void logtime(String TAG){
+        Long timeStamp = System.currentTimeMillis();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        System.out.println(TAG+" Time:"+sdf.format(timeStamp));
+    }
     public static void main(String[] args)
     {
         //唯一的中间件
@@ -14,7 +21,7 @@ public class main
 
         List<EventHandler> eventHandlerList = new ArrayList<>();
         System.out.println("请选择调度策略：");
-        System.out.println("1.全广播式    2.选择广播式：点对点    3.选择广播式：发布订阅");
+        System.out.println("1.全广播式     2.选择广播式：发布订阅   3.选择广播式：点对点");
         Scanner input = new Scanner(System.in);
         int strategy = input.nextInt();
         switch (strategy)
